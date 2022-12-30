@@ -74,7 +74,7 @@ func (f *ProductRepo) GetByPKey(ctx context.Context, pkey *models.ProductPrimarK
 			updated_at
 		FROM
 			products
-		WHERE id = $1
+		WHERE products.deleted_at IS NULL AND id = $1
 	`
 
 	err := f.db.QueryRow(ctx, query, pkey.Id).
@@ -128,6 +128,7 @@ func (f *ProductRepo) GetList(ctx context.Context, req *models.GetListProductReq
 			updated_at
 		FROM
 			products
+		WHERE products.deleted_at IS NULL
 	`
 
 	query += offset + limit
@@ -210,7 +211,7 @@ func (f *ProductRepo) Update(ctx context.Context, req *models.UpdateProduct) (in
 
 func (f *ProductRepo) Delete(ctx context.Context, req *models.ProductPrimarKey) error {
 
-	_, err := f.db.Exec(ctx, "UPDATE products SET deleted_at = now(), is_deleted = true WHERE id = $1", req.Id)
+	_, err := f.db.Exec(ctx, "UPDATE products SET deleted_at = now() WHERE id = $1", req.Id)
 	if err != nil {
 		return err
 	}

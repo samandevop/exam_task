@@ -79,7 +79,7 @@ func (f *OrderRepo) GetByPKey(ctx context.Context, pkey *models.OrderPrimarKey) 
     	orders
 	JOIN products ON orders.product_id = products.id
 	JOIN categories ON products.category_id = categories.id
-	WHERE orders.is_deleted = false AND products.is_deleted = false AND categories.is_deleted = false AND orders.id = $1
+	WHERE orders.deleted_at IS NULL AND products.deleted_at IS NULL AND categories.deleted_at IS NULL AND orders.id = $1
 	`
 
 	err := f.db.QueryRow(ctx, query, pkey.Id).Scan(
@@ -137,7 +137,7 @@ func (f *OrderRepo) GetList(ctx context.Context, req *models.GetListOrderRequest
     	orders
 	JOIN products ON orders.product_id = products.id
 	JOIN categories ON products.category_id = categories.id
-	WHERE orders.is_deleted = false AND products.is_deleted = false AND categories.is_deleted = false
+	WHERE orders.deleted_at IS NULL AND products.deleted_at IS NULL AND categories.deleted_at IS NULL
 	`
 
 	query += offset + limit
@@ -226,7 +226,7 @@ func (f *OrderRepo) Update(ctx context.Context, req *models.UpdateOrder) (int64,
 
 func (f *OrderRepo) Delete(ctx context.Context, req *models.OrderPrimarKey) error {
 
-	_, err := f.db.Exec(ctx, "UPDATE orders SET deleted_at = now(), is_deleted = true WHERE id = $1", req.Id)
+	_, err := f.db.Exec(ctx, "UPDATE orders SET deleted_at = now() WHERE id = $1", req.Id)
 	if err != nil {
 		return err
 	}
