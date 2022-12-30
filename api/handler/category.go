@@ -43,7 +43,7 @@ func (h *HandlerV1) CreateCategory(c *gin.Context) {
 
 	resp, err := h.storage.Category().GetByPKey(
 		context.Background(),
-		&models.CategoryPrimarKey{Id: id},
+		&models.CategoryPrimaryKey{Id: id},
 	)
 
 	if err != nil {
@@ -73,7 +73,7 @@ func (h *HandlerV1) GetCategoryById(c *gin.Context) {
 
 	resp, err := h.storage.Category().GetByPKey(
 		context.Background(),
-		&models.CategoryPrimarKey{Id: id},
+		&models.CategoryPrimaryKey{Id: id},
 	)
 
 	if err != nil {
@@ -198,7 +198,7 @@ func (h *HandlerV1) UpdateCategory(c *gin.Context) {
 
 	resp, err := h.storage.Category().GetByPKey(
 		context.Background(),
-		&models.CategoryPrimarKey{Id: id},
+		&models.CategoryPrimaryKey{Id: id},
 	)
 
 	if err != nil {
@@ -233,7 +233,7 @@ func (h *HandlerV1) DeleteCategory(c *gin.Context) {
 
 	err := h.storage.Category().Delete(
 		context.Background(),
-		&models.CategoryPrimarKey{
+		&models.CategoryPrimaryKey{
 			Id: id,
 		},
 	)

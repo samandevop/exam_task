@@ -729,9 +729,6 @@ const docTemplate = `{
                 "created_at": {
                     "type": "string"
                 },
-                "deleted_at": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "string"
                 },
@@ -752,7 +749,7 @@ const docTemplate = `{
                 "childs": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.ListChild"
+                        "$ref": "#/definitions/models.Category"
                     }
                 },
                 "created_at": {
@@ -847,26 +844,6 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/models.Product"
                     }
-                }
-            }
-        },
-        "models.ListChild": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "parent_id": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
                 }
             }
         },

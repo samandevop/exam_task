@@ -3,8 +3,6 @@ definitions:
     properties:
       created_at:
         type: string
-      deleted_at:
-        type: string
       id:
         type: string
       name:
@@ -18,7 +16,7 @@ definitions:
     properties:
       childs:
         items:
-          $ref: '#/definitions/models.ListChild'
+          $ref: '#/definitions/models.Category'
         type: array
       created_at:
         type: string
@@ -80,19 +78,6 @@ definitions:
         items:
           $ref: '#/definitions/models.Product'
         type: array
-    type: object
-  models.ListChild:
-    properties:
-      created_at:
-        type: string
-      id:
-        type: string
-      name:
-        type: string
-      parent_id:
-        type: string
-      updated_at:
-        type: string
     type: object
   models.Order:
     properties:

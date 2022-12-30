@@ -1,6 +1,6 @@
 package models
 
-type CategoryPrimarKey struct {
+type CategoryPrimaryKey struct {
 	Id string `json:"id"`
 }
 
@@ -15,7 +15,6 @@ type Category struct {
 	ParentID  string `json:"parent_id"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
-	DeletedAt string `json:"deleted_at"`
 }
 
 type UpdateCategorySwagger struct {
@@ -35,8 +34,8 @@ type GetListCategoryRequest struct {
 }
 
 type GetListCategoryResponse struct {
-	Count      int            `json:"count"`
-	Categories []CategoryList `json:"categories"`
+	Count      int             `json:"count"`
+	Categories []*CategoryList `json:"categories"`
 }
 
 type CategoryList struct {
@@ -45,13 +44,5 @@ type CategoryList struct {
 	ParentID  string      `json:"parent_id"`
 	CreatedAt string      `json:"created_at"`
 	UpdatedAt string      `json:"updated_at"`
-	Childs    []ListChild `json:"childs"`
-}
-
-type ListChild struct {
-	Id        string `json:"id"`
-	Name      string `json:"name"`
-	ParentID  string `json:"parent_id"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	Childs    []*Category `json:"childs"`
 }

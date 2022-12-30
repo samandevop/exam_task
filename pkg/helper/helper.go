@@ -14,26 +14,24 @@ func ReplaceQueryParams(namedQuery string, params map[string]interface{}) (strin
 
 	for k, v := range params {
 		if k != "" {
-			if v == "" {
-				var nullStr sql.NullString
-				// oldsize := len(namedQuery)
-				namedQuery = strings.ReplaceAll(namedQuery, ":"+k, "$"+strconv.Itoa(i))
 
-				// if oldsize != len(namedQuery) {
-				args = append(args, nullStr)
-				i++
-				// }
-			} else {
-				// oldsize := len(namedQuery)
-				namedQuery = strings.ReplaceAll(namedQuery, ":"+k, "$"+strconv.Itoa(i))
+			namedQuery = strings.ReplaceAll(namedQuery, ":"+k, "$"+strconv.Itoa(i))
+			args = append(args, v)
 
-				// if oldsize != len(namedQuery) {
-				args = append(args, v)
-				i++
-				// }
-			}
+			i++
 		}
 	}
 
 	return namedQuery, args
+}
+
+func NewNullString(s string) sql.NullString {
+	if len(s) == 0 {
+		return sql.NullString{}
+	}
+
+	return sql.NullString{
+		String: s,
+		Valid:  true,
+	}
 }
